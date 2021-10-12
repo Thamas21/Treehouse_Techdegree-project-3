@@ -25,7 +25,7 @@ class Game:
     def welcome(self):
         welcome = 'Welcome to Phrase Hunter'
         boarder = '=' * len(welcome)
-        print('\n\n\n')
+        print('\n' * 3)
         print(' ' * 20, boarder)
         print(' ' * 20, welcome)
         print(' ' * 20, boarder)
