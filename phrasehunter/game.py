@@ -1,35 +1,56 @@
 # Create your Game class logic in here.
+from phrasehunter.phrase import Phrase
 import random
-from phrase import Phrase
-
-
 class Game:
+    
     def __init__(self):
+        
         self.missed = 0
-        self.phrases = []
-        self.active_phrase = None
+        self.phrases = [
+        Phrase("Beautiful is better than ugly"),
+        Phrase("Explicit is better than implicit"),
+        Phrase("Simple is better than complex"),
+        Phrase("Complex is better than complicated"),
+        Phrase("Flat is better than nested")
+            
+        ]
+        self.active_phrase = self.get_random_phrase()
         self.guesses = [" "]
 
-    def create_phrase(self, phrase):
-        self.phrases.append(phrase)
-
-    def __iter__(self, phrase):
-        self.phrases
-
     def get_random_phrase(self):
-        random_phrase = random.choice(self.phrases)
-        print(random_phrase)
-
-    def __str__(self):
-        return f'{self.phrases}'.format()
+        phrase = random.choice(self.phrases)
+        return phrase
 
 
-if __name__ == "__main__":
-    phrase_one = Phrase("Beautiful is better than ugly")
-    phrase_two = Phrase("Explicit is better than implicit")
-    phrase_three = Phrase("Simple is better than complex")
-    game = Game()
-    game.create_phrase(phrase_one)
-    game.create_phrase(phrase_two)
-    game.create_phrase(phrase_three)
-    game.get_random_phrase()
+    def welcome(self):
+        welcome = 'Welcome to Phrase Hunter'
+        boarder = '=' * len(welcome)
+        print('\n\n\n')
+        print(' ' * 20, boarder)
+        print(' ' * 20, welcome)
+        print(' ' * 20, boarder)
+        print('\n\n\n\n')
+
+    def start(self):
+        self.welcome()
+        while not self.active_phrase.check_complete(self.guesses):
+            self.active_phrase.display(self.guesses)
+            print('\n')
+            print(f'Number missed:  {self.missed}')
+            print('\n')
+            user_guess = self.get_guess()
+            self.guesses.append(user_guess)
+            if not self.active_phrase.check_guess(user_guess):
+                self.missed += 1
+        if self.active_phrase.check_complete(self.guesses):
+            print(f"Congratz! You won!! And only missed {self.missed}!")
+        else:
+            print('Better luck next time!')
+
+    def get_guess(self):
+        user_guess = input('Guess a letter: ')
+        return user_guess
+
+    
+    
+    
