@@ -29,7 +29,7 @@ class Game:
         print(' ' * 20, boarder)
         print(' ' * 20, welcome)
         print(' ' * 20, boarder)
-        print('\n\n\n\n')
+        print('\n' * 2)
 
     def start(self):
         self.welcome()
@@ -42,6 +42,8 @@ class Game:
             self.guesses.append(user_guess)
             if not self.active_phrase.check_guess(user_guess):
                 self.missed += 1
+            if self.missed > 5:
+                break
         if self.active_phrase.check_complete(self.guesses):
             print(f"Congratz! You won!! And only missed {self.missed}!")
         else:
