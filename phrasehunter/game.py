@@ -16,6 +16,7 @@ class Game:
         ]
         self.active_phrase = self.get_random_phrase()
         self.guesses = [" "]
+    
 
     def get_random_phrase(self):
         phrase = random.choice(self.phrases)
@@ -32,27 +33,55 @@ class Game:
         print('\n' * 2)
 
     def start(self):
-        self.welcome()
+        #self.welcome()
         while not self.active_phrase.check_complete(self.guesses):
             self.active_phrase.display(self.guesses)
             print('\n')
             print(f'Number missed:  {self.missed}')
             print('\n')
             user_guess = self.get_guess()
-            self.guesses.append(user_guess)
-            if not self.active_phrase.check_guess(user_guess):
-                self.missed += 1
-            if self.missed > 5:
+            if self.missed > 4:
+                return False
                 break
         if self.active_phrase.check_complete(self.guesses):
             print(f"Congratz! You won!! And only missed {self.missed}!")
+            
         else:
             print('Better luck next time!')
-
+        
     def get_guess(self):
-        user_guess = input('Guess a letter: ')
+        user_guess = input('Guess a letter: ').lower()
+        if not user_guess.isalpha():
+            print('Letters only please!')
+            print('\n')
+            self.missed += 1
+        elif len(user_guess) >= 2:
+            print('Easy there tiger! One letter at a time.')
+            print('\n')
+            self.missed += 1
+        elif user_guess in self.guesses:
+            print("You've already guessed that")
+            self.missed += 1
+        elif user_guess not in self.active_phrase.phrase:
+            print("The phrase doesn't contain that letter.")
+            self.missed += 1
+        else:
+            self.guesses.append(user_guess)
         return user_guess
 
     
+    def play_phrasehunter(self):
+        play_again = ' '
+        while True:
+            self.start()
+            play_again = input('Do you want to play again? yes/no: ').upper()
+            if play_again == 'Y' or play_again == 'YES':
+                self.missed = 0
+                self.guesses = [" "]
+                self.active_phrase = self.get_random_phrase()
+                self.start()
+            else:
+                return False
+
     
     

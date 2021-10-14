@@ -7,11 +7,8 @@ from phrasehunter.phrase import Phrase
 
 if __name__ == "__main__":
     game = Game()
-    print(game.active_phrase.phrase)
-    game.start()
-  
-
-   
+    game.welcome()
+    game.play_phrasehunter()   
    
 
    
