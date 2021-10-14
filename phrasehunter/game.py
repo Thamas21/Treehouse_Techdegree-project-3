@@ -1,10 +1,11 @@
-# Create your Game class logic in here.
 from phrasehunter.phrase import Phrase
 import random
+
+
 class Game:
-    
+
     def __init__(self):
-        
+
         self.missed = 0
         self.phrases = [
         Phrase("Beautiful is better than ugly"),
@@ -12,11 +13,11 @@ class Game:
         Phrase("Simple is better than complex"),
         Phrase("Complex is better than complicated"),
         Phrase("Flat is better than nested")
-            
+
         ]
         self.active_phrase = self.get_random_phrase()
         self.guesses = [" "]
-    
+
 
     def get_random_phrase(self):
         phrase = random.choice(self.phrases)
@@ -32,6 +33,7 @@ class Game:
         print(' ' * 20, boarder)
         print('\n' * 2)
 
+
     def start(self):
         #self.welcome()
         while not self.active_phrase.check_complete(self.guesses):
@@ -45,10 +47,11 @@ class Game:
                 break
         if self.active_phrase.check_complete(self.guesses):
             print(f"Congratz! You won!! And only missed {self.missed}!")
-            
+
         else:
             print('Better luck next time!')
-        
+
+
     def get_guess(self):
         user_guess = input('Guess a letter: ').lower()
         if not user_guess.isalpha():
@@ -69,7 +72,7 @@ class Game:
             self.guesses.append(user_guess)
         return user_guess
 
-    
+
     def play_phrasehunter(self):
         play_again = ' '
         while True:
@@ -82,6 +85,3 @@ class Game:
                 self.start()
             else:
                 return False
-
-    
-    
