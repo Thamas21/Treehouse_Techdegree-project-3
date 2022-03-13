@@ -8,21 +8,19 @@ class Game:
 
         self.missed = 0
         self.phrases = [
-        Phrase("Beautiful is better than ugly"),
-        Phrase("Explicit is better than implicit"),
-        Phrase("Simple is better than complex"),
-        Phrase("Complex is better than complicated"),
-        Phrase("Flat is better than nested")
+            Phrase("Beautiful is better than ugly"),
+            Phrase("Explicit is better than implicit"),
+            Phrase("Simple is better than complex"),
+            Phrase("Complex is better than complicated"),
+            Phrase("Flat is better than nested")
 
         ]
         self.active_phrase = self.get_random_phrase()
         self.guesses = [" "]
 
-
     def get_random_phrase(self):
         phrase = random.choice(self.phrases)
         return phrase
-
 
     def welcome(self):
         welcome = 'Welcome to Phrase Hunter'
@@ -33,24 +31,21 @@ class Game:
         print(' ' * 20, boarder)
         print('\n' * 2)
 
-
     def start(self):
-        #self.welcome()
+        self.welcome()
         while not self.active_phrase.check_complete(self.guesses):
             self.active_phrase.display(self.guesses)
             print('\n')
             print(f'Number missed:  {self.missed}')
             print('\n')
-            user_guess = self.get_guess()
+            self.get_guess()
             if self.missed > 4:
+                print('Too many misses. Better luck next time!')
                 return False
-                break
         if self.active_phrase.check_complete(self.guesses):
             print(f"Congratz! You won!! And only missed {self.missed}!")
-
         else:
             print('Better luck next time!')
-
 
     def get_guess(self):
         user_guess = input('Guess a letter: ').lower()
@@ -71,7 +66,6 @@ class Game:
         else:
             self.guesses.append(user_guess)
         return user_guess
-
 
     def play_phrasehunter(self):
         play_again = ' '

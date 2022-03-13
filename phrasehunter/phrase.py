@@ -1,6 +1,6 @@
 
 class Phrase:
-    
+
     def __init__(self, phrase):
 
         self.phrase = phrase.lower()
@@ -19,9 +19,8 @@ class Phrase:
             return True
         else:
             return False
-    
+
     def check_complete(self, guesses):
-        phrase_list = list(self.phrase)
         game_over = all(letter in guesses for letter in self.phrase)
         if game_over:
             return True
